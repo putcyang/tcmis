@@ -110,8 +110,6 @@ def search():
         return info
     else:  
         return render_template("input.html")
-           info += "海報：" + doc.to_dict()["picture"] + "<br>"
-
 
 #if __name__ == "__main__":
     #app.run()

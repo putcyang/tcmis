@@ -114,7 +114,7 @@ def searchQ():
         MovieTitle = request.form["MovieTitle"]
         info = ""     
         collection_ref = db.collection("電影")
-        #docs = collection_ref.where("title","==", "夜鷹的單戀").get()
+        #docs = collection_ref.where("title","==", "鬼修女II").get()
         docs = collection_ref.order_by("showDate").get()
         for doc in docs:
             if MovieTitle in doc.to_dict()["title"]: 

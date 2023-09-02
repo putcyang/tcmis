@@ -108,5 +108,9 @@ def search():
             info += "上映日期：" + doc.to_dict()["showDate"] + "<br><br>"           
     return info
 
+@app.route("/searchQ", methods=["POST","GET"])
+def search():
+    return render_template("input.html")
+
 #if __name__ == "__main__":
     #app.run()

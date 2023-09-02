@@ -109,7 +109,7 @@ def search():
     return info
 
 @app.route("/searchQ", methods=["POST","GET"])
-def search():
+def searchQ():
     return render_template("input.html")
 
 #if __name__ == "__main__":

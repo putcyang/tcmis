@@ -97,7 +97,7 @@ def movie():
 def search():
     info = ""     
     collection_ref = db.collection("電影")
-    docs = collection_ref.where("title","==", "夜鷹的單戀").get()  
+    docs = collection_ref.where("title","==", "鬼修女II").get()  
     for doc in docs:
         info += "片名：" + doc.to_dict()["title"] + "<br>" 
         info += "海報：" + doc.to_dict()["picture"] + "<br>"

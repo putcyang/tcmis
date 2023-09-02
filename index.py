@@ -97,13 +97,15 @@ def movie():
 def search():
     info = ""     
     collection_ref = db.collection("電影")
-    docs = collection_ref.where("title","==", "鬼修女II").get()  
+    #docs = collection_ref.where("title","==", "夜鷹的單戀").get()
+    docs = collection_ref.order_by("showDate").get()
     for doc in docs:
-        info += "片名：" + doc.to_dict()["title"] + "<br>" 
-        info += "海報：" + doc.to_dict()["picture"] + "<br>"
-        info += "影片介紹：" + doc.to_dict()["hyperlink"] + "<br>"
-        info += "片長：" + doc.to_dict()["showLength"] + " 分鐘<br>" 
-        info += "上映日期：" + doc.to_dict()["showDate"] + "<br><br>"           
+        if "：" in doc.to_dict()["title"]: 
+            info += "片名：" + doc.to_dict()["title"] + "<br>" 
+            info += "海報：" + doc.to_dict()["picture"] + "<br>"
+            info += "影片介紹：" + doc.to_dict()["hyperlink"] + "<br>"
+            info += "片長：" + doc.to_dict()["showLength"] + " 分鐘<br>" 
+            info += "上映日期：" + doc.to_dict()["showDate"] + "<br><br>"           
     return info
 
 

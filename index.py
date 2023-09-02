@@ -119,7 +119,7 @@ def searchQ():
         for doc in docs:
             if MovieTitle in doc.to_dict()["title"]: 
                 info += "片名：" + doc.to_dict()["title"] + "<br>" 
-      info += "影片介紹：" + doc.to_dict()["hyperlink"] + "<br>"
+                info += "影片介紹：" + doc.to_dict()["hyperlink"] + "<br>"
                 info += "片長：" + doc.to_dict()["showLength"] + " 分鐘<br>" 
                 info += "上映日期：" + doc.to_dict()["showDate"] + "<br><br>"           
         return info

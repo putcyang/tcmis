@@ -136,7 +136,11 @@ def webhook():
     #info = "動作：" + action + "； 查詢內容：" + msg
     if (action == "rateChoice"):
         rate =  req.get("queryResult").get("parameters").get("rate")
-        info = "您選擇的電影分級是：" + rate
+        if (rate == "輔12級"):
+            rate = "輔導級(未滿十二歲之兒童不得觀賞)"
+        elif (rate == "輔15級"):
+            rate = "輔導級(未滿十五歲之人不得觀賞)"
+        info = "您選擇的電影分級是：" + rate + "，相關電影：\n"
     return make_response(jsonify({"fulfillmentText": info}))
 
 

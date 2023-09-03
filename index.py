@@ -126,8 +126,8 @@ def searchQ():
     else:  
         return render_template("input.html")
 
-@app.route("/webhook", methods=["POST"])
-def webhook():
+@app.route("/webhook0", methods=["POST"])
+def webhook0():
     # build a request object
     req = request.get_json(force=True)
     # fetch queryResult from json
@@ -184,6 +184,66 @@ def webhook():
         MaxT = json.loads(Data.text)["records"]["location"][0]["weatherElement"][4]["time"][0]["parameter"]["parameterName"]
         info = city + "的天氣是" + Weather + "，降雨機率：" + Rain + "%"
         info += "，溫度：" + MinT + "-" + MaxT + "度"
+    return make_response(jsonify({"fulfillmentText": info}))
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    # build a request object
+    req = request.get_json(force=True)
+    # fetch queryResult from json
+    action =  req.get("queryResult").get("action")
+    #msg =  req.get("queryResult").get("queryText")
+    #info = "動作：" + action + "； 查詢內容：" + msg
+    if (action == "rateChoice"):
+        rate =  req.get("queryResult").get("parameters").get("rate")
+        if (rate == "輔12級"):
+            rate = "輔導級(未滿十二歲之兒童不得觀賞)"
+        elif (rate == "輔15級"):
+            rate = "輔導級(未滿十五歲之人不得觀賞)"
+        info = "您選擇的電影分級是：" + rate + "，相關電影：\n"
+
+        collection_ref = db.collection("子青電影")
+        docs = collection_ref.get()
+        result = ""
+        for doc in docs:
+            dict = doc.to_dict()
+            if rate in dict["rate"]:
+                result += "片名：" + dict["title"] + "\n"
+                result += "介紹：" + dict["hyperlink"] + "\n\n"
+        info += result
+    elif (action == "MovieDetail"): 
+        cond =  req.get("queryResult").get("parameters").get("FilmQ")
+        keyword =  req.get("queryResult").get("parameters").get("any")
+        info = "您要查詢電影的" + cond + "，關鍵字是：" + keyword + "\n\n"
+        if (cond == "片名"):
+            collection_ref = db.collection("子青電影")
+            docs = collection_ref.get()
+            found = False
+            for doc in docs:
+                dict = doc.to_dict()
+                if keyword in dict["title"]:
+                    found = True 
+                    info += "片名：" + dict["title"] + "\n"
+                    info += "海報：" + dict["picture"] + "\n"
+                    info += "影片介紹：" + dict["hyperlink"] + "\n"
+                    info += "片長：" + dict["showLength"] + " 分鐘\n"
+                    info += "分級：" + dict["rate"] + "\n" 
+                    info += "上映日期：" + dict["showDate"] + "\n\n"
+            if not found:
+                info += "很抱歉，目前無符合這個關鍵字的相關電影喔"
+
+    elif (action == "CityWeather"):
+        city =  req.get("queryResult").get("parameters").get("city")
+        token = "rdec-key-123-45678-011121314"
+        url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + token + "&format=JSON&locationName=" + str(city)
+        Data = requests.get(url)
+        Weather = json.loads(Data.text)["records"]["location"][0]["weatherElement"][0]["time"][0]["parameter"]["parameterName"]
+        Rain = json.loads(Data.text)["records"]["location"][0]["weatherElement"][1]["time"][0]["parameter"]["parameterName"]
+        MinT = json.loads(Data.text)["records"]["location"][0]["weatherElement"][2]["time"][0]["parameter"]["parameterName"]
+        MaxT = json.loads(Data.text)["records"]["location"][0]["weatherElement"][4]["time"][0]["parameter"]["parameterName"]
+        info = city + "的天氣是" + Weather + "，降雨機率：" + Rain + "%"
+        info += "，溫度：" + MinT + "-" + MaxT + "度"
+
     return make_response(jsonify({"fulfillmentText": info}))
 
 #if __name__ == "__main__":

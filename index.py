@@ -172,15 +172,7 @@ def webhook():
                     info += "上映日期：" + dict["showDate"] + "\n\n"
             if not found:
                 info += "很抱歉，目前無符合這個關鍵字的相關電影喔"
-    return make_response(jsonify({"fulfillmentText": info}))
 
-
-@app.route("/webhook5", methods=["POST"])
-def webhook():
-     req = request.get_json(force=True)
-     action =  req.get("queryResult").get("action")
-    if (action == "rateChoice"):
-…
     elif (action == "CityWeather"):
         city =  req.get("queryResult").get("parameters").get("city")
         token = "rdec-key-123-45678-011121314"
@@ -192,9 +184,7 @@ def webhook():
         MaxT = json.loads(Data.text)["records"]["location"][0]["weatherElement"][4]["time"][0]["parameter"]["parameterName"]
         info = city + "的天氣是" + Weather + "，降雨機率：" + Rain + "%"
         info += "，溫度：" + MinT + "-" + MaxT + "度"
-
     return make_response(jsonify({"fulfillmentText": info}))
-
 
 #if __name__ == "__main__":
     #app.run()

@@ -126,7 +126,7 @@ def searchQ():
     else:  
         return render_template("input.html")
 
-@app.route("/webhook3", methods=["POST"])
+@app.route("/webhook", methods=["POST"])
 def webhook3():
     # build a request object
     req = request.get_json(force=True)

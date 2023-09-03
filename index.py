@@ -154,22 +154,8 @@ def webhook():
     elif (action == "MovieDetail"): 
         cond =  req.get("queryResult").get("parameters").get("FilmQ")
         keyword =  req.get("queryResult").get("parameters").get("any")
-        if (cond == "片名"):
-            collection_ref = db.collection("子青電影")
-            docs = collection_ref.get()
-            found = False
-            for doc in docs:
-                dict = doc.to_dict()
-                if keyword in dict["title"]:
-                    found = True 
-                    info += "片名：" + dict["title"] + "\n"
-                    info += "海報：" + dict["picture"] + "\n"
-                    info += "影片介紹：" + dict["hyperlink"] + "\n"
-                    info += "片長：" + dict["showLength"] + " 分鐘\n"
-                    info += "分級：" + dict["rate"] + "\n" 
-                    info += "上映日期：" + dict["showDate"] + "\n\n"
-            if not found:
-                info += "很抱歉，目前無符合這個關鍵字的相關電影喔"
+        
+        info = "關鍵字的相關電影喔"
     return make_response(jsonify({"fulfillmentText": info}))
 
 

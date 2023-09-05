@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    homepage = "<h1>楊子青Python網頁</h1>"
+    homepage = "<h1>楊子青Python網頁a</h1>"
     homepage += "<a href=/mis>MIS</a><br>"
     homepage += "<a href=/today>顯示日期時間</a><br>"
     homepage += "<a href=/welcome?nick=tcyang>傳送使用者暱稱</a><br>"
@@ -29,7 +29,7 @@ def index():
 
 @app.route("/mis")
 def course():
-    return "<h1>資訊管理導論a</h1>"
+    return "<h1>資訊管理導論</h1>"
 
 @app.route("/today")
 def today():
@@ -192,14 +192,7 @@ def webhook():
 
 @app.route("/chatgpt")
 def chatgpt():
-    openai.api_key = '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'
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt="靜宜大學資管系楊子青老師在獲獎方面？",
-        max_tokens=128,
-        temperature=0.5,
-    )
-    msg = response.choices[0].text
+    msg ="aaa"
     return msg
 
 #if __name__ == "__main__":

@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    homepage = "<h1>楊子青Python網頁c</h1>"
+    homepage = "<h1>楊子青Python網頁d</h1>"
     homepage += "<a href=/mis>MIS</a><br>"
     homepage += "<a href=/today>顯示日期時間</a><br>"
     homepage += "<a href=/welcome?nick=tcyang>傳送使用者暱稱</a><br>"
@@ -189,7 +189,7 @@ def webhook():
         info += "，溫度：" + MinT + "-" + MaxT + "度"
 
     elif (action == "input.unknown"):
-        msg =  req["queryResult"]["queryText"]
+        info =  req["queryResult"]["queryText"]
     return make_response(jsonify({"fulfillmentText": info}))
 
 @app.route("/chatgpt")

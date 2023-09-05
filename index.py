@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    homepage = "<h1>楊子青Python網頁d</h1>"
+    homepage = "<h1>楊子青Python網頁</h1>"
     homepage += "<a href=/mis>MIS</a><br>"
     homepage += "<a href=/today>顯示日期時間</a><br>"
     homepage += "<a href=/welcome?nick=tcyang>傳送使用者暱稱</a><br>"
@@ -190,6 +190,13 @@ def webhook():
 
     elif (action == "input.unknown"):
         info =  req["queryResult"]["queryText"]
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt= info,
+            max_tokens=200,
+            temperature=0.5,
+        )
+        info = response["choices"][0]["text"].replace('。','。\n')
     return make_response(jsonify({"fulfillmentText": info}))
 
 @app.route("/chatgpt")

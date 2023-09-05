@@ -1,3 +1,7 @@
+import openai
+import os
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 import requests, json
 from bs4 import BeautifulSoup
 
@@ -184,6 +188,17 @@ def webhook():
         info += "，溫度：" + MinT + "-" + MaxT + "度"
 
     return make_response(jsonify({"fulfillmentText": info}))
+
+@app.route("/chatgpt")
+def chatgpt():
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="靜宜大學資管系楊子青老師在獲獎方面？",
+        max_tokens=128,
+        temperature=0.5,
+    )
+    msg = response.choices[0].text
+    return msg
 
 #if __name__ == "__main__":
     #app.run()

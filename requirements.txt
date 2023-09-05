@@ -1,4 +1,4 @@
 flask
 firebase_admin
 bs4
-openai
+Openai

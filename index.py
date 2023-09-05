@@ -1,5 +1,5 @@
 import openai
-import os
+#import os
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -192,7 +192,16 @@ def webhook():
 
 @app.route("/chatgpt")
 def chatgpt():
-    msg ="aaa"
+    openai.api_key = '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'
+
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="靜宜大學的風評如何？",
+        max_tokens=200,
+        temperature=0.5,
+    )
+
+    msg = response["choices"][0]["text"].replace('。','。\n')
     return msg
 
 #if __name__ == "__main__":

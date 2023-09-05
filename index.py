@@ -192,7 +192,7 @@ def webhook():
 
 @app.route("/chatgpt")
 def chatgpt():
-    openai.api_key = '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'
+    openai.api_key = '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'
 
     response = openai.Completion.create(
         model="text-davinci-003",

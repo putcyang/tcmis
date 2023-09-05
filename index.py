@@ -1,7 +1,7 @@
 import openai
 import os
 #openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = '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'
+
 
 import requests, json
 from bs4 import BeautifulSoup
@@ -29,7 +29,7 @@ def index():
 
 @app.route("/mis")
 def course():
-    return "<h1>資訊管理導論</h1>"
+    return "<h1>資訊管理導論a</h1>"
 
 @app.route("/today")
 def today():
@@ -192,6 +192,7 @@ def webhook():
 
 @app.route("/chatgpt")
 def chatgpt():
+    openai.api_key = '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'
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt="靜宜大學資管系楊子青老師在獲獎方面？",

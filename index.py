@@ -1,6 +1,7 @@
 import openai
 import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = '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'
 
 import requests, json
 from bs4 import BeautifulSoup

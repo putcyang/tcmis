@@ -188,6 +188,8 @@ def webhook():
         info = city + "的天氣是" + Weather + "，降雨機率：" + Rain + "%"
         info += "，溫度：" + MinT + "-" + MaxT + "度"
 
+    elif (action == "input.unknown"):
+        msg =  req["queryResult"]["queryText"]
     return make_response(jsonify({"fulfillmentText": info}))
 
 @app.route("/chatgpt")
